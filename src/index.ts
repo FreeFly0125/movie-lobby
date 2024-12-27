@@ -5,6 +5,7 @@ import express from 'express';
 import { Logger } from 'utils';
 import { connectToDatabase } from 'database';
 import { MSG_SERVER_START_FAILED } from 'consts/Messages';
+import appRouter from 'routes';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const app = express();
 app
   .use(cors())
   .use(express.json())
+  .use(appRouter)
   .use('/health', (_req, res) => res.send('OK'));
 
 const PORT = process.env.SERVER_PORT || 4000;
