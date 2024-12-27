@@ -21,7 +21,6 @@ export const searchMovies = async (params: {title?: string, genre?: string}) => 
 };
 
 export const createMovie = async (movie: MovieSchema.IMovie) => {
-  console.log(movie);
   const newMovie = await MovieSchema.Movie.create(movie);
   return newMovie;
 };
