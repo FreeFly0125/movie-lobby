@@ -1,6 +1,6 @@
-import { MSG_DB_CONNECT_CLOSED, MSG_DB_CONNECT_FAIL, MSG_DB_CONNECT_SUCCESS } from 'consts/Messages';
+import { MESSAGES } from '../consts';
 import mongoose from 'mongoose';
-import { Logger } from 'utils';
+import { Logger } from '../utils';
 export * as MovieSchema from './schemas/movie';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/movie_lobby';
@@ -15,20 +15,20 @@ const options = {
 export async function connectToDatabase() {
   try {
     await mongoose.connect(MONGODB_URI, options);
-    Logger.log(MSG_DB_CONNECT_SUCCESS);
+    Logger.log(MESSAGES.MSG_DB_CONNECT_SUCCESS);
   } catch (error) {
-    Logger.error(MSG_DB_CONNECT_FAIL, error);
+    Logger.error(MESSAGES.MSG_DB_CONNECT_FAIL, error);
     throw error;
   }
 }
 
 
 mongoose.connection.on('error', (err) => {
-  Logger.error(MSG_DB_CONNECT_FAIL, err);
+  Logger.error(MESSAGES.MSG_DB_CONNECT_FAIL, err);
 });
 
 mongoose.connection.on('disconnected', () => {
-  Logger.log(MSG_DB_CONNECT_CLOSED);
+  Logger.log(MESSAGES.MSG_DB_CONNECT_CLOSED);
 });
 
 

@@ -1,11 +1,10 @@
-import { MESSAGES } from 'consts';
+import { MESSAGES } from './consts';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { Logger } from 'utils';
-import { connectToDatabase } from 'database';
-import { MSG_SERVER_START_FAILED } from 'consts/Messages';
-import appRouter from 'routes';
+import { Logger } from './utils';
+import { connectToDatabase } from './database';
+import appRouter from './routes';
 
 dotenv.config();
 
@@ -27,7 +26,7 @@ async function startServer() {
       Logger.log(MESSAGES.MSG_SERVER_STARTED);
     });
   } catch (error) {
-    Logger.error(MSG_SERVER_START_FAILED, error);
+    Logger.error(MESSAGES.MSG_SERVER_START_FAILED, error);
     process.exit(1);
   }
 }
