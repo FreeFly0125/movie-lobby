@@ -1,6 +1,7 @@
 import { MSG_DB_CONNECT_CLOSED, MSG_DB_CONNECT_FAIL, MSG_DB_CONNECT_SUCCESS } from 'consts/Messages';
 import mongoose from 'mongoose';
 import { Logger } from 'utils';
+export * as MovieSchema from './schemas/movie';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/movie_lobby';
 
