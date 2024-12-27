@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  db:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      MONGODB_URI: mongodb://db:27017/mydatabase
+      SERVER_PORT: 4000
