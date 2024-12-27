@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { Logger } from 'utils';
+import { connectToDatabase } from 'database';
+import { MSG_SERVER_START_FAILED } from 'consts/Messages';
 
 dotenv.config();
 
@@ -15,8 +17,19 @@ app
 
 const PORT = process.env.SERVER_PORT || 4000;
 
-app.listen(PORT, () => {
-  Logger.log(MESSAGES.MSG_SERVER_STARTED);
-});
+async function startServer() {
+  try {
+    await connectToDatabase();
+    
+    app.listen(PORT, () => {
+      Logger.log(MESSAGES.MSG_SERVER_STARTED);
+    });
+  } catch (error) {
+    Logger.error(MSG_SERVER_START_FAILED, error);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 export default app;
